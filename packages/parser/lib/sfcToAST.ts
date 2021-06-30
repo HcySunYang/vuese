@@ -15,6 +15,7 @@ export interface AstResult {
   templateAst?: object
   jsSource: string
   templateSource: string
+  docSource: string
 }
 
 export function sfcToAST(
@@ -25,7 +26,7 @@ export function sfcToAST(
 ): AstResult {
   const plugins = getBabelParserPlugins(babelParserPlugins)
   const sfc = parseComponent(source)
-  const res: AstResult = { jsSource: '', templateSource: '' }
+  const res: AstResult = { jsSource: '', templateSource: '', docSource: '' }
   if (sfc.script || jsFile) {
     if (sfc.script && (!sfc.script.content && sfc.script.src)) {
       // Src Imports
@@ -69,6 +70,14 @@ export function sfcToAST(
       comments: true
     }).ast
   }
+
+  if (sfc.customBlocks && sfc.customBlocks.length) {
+    const docsBlock = sfc.customBlocks.find((block: Record<string, any>) => block.type === 'docs');
+    if (docsBlock) {
+      res.docSource = docsBlock.content || ''
+    }
+  }
+
   return res
 }
 

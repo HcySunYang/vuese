@@ -156,6 +156,7 @@ export interface ParserResult {
   watch?: WatchResult[]
   name?: string
   componentDesc?: CommentResult
+  extraDocs?: string
 }
 
 export function parser(
@@ -210,5 +211,9 @@ export function parser(
   if (astRes.templateAst) {
     parseTemplate(astRes.templateAst, seenEvent, finallyOptions)
   }
+  if (astRes.docSource) {
+    res.extraDocs = astRes.docSource;
+  }
+
   return res
 }
