@@ -1,5 +1,5 @@
 module.exports = options => {
-  const { title, components, markdownDir } = options
+  const { title, components, markdownDir, docuteOptions = {} } = options
   const groupsObjs = {}
   const groups = []
   components.forEach(c => {
@@ -35,8 +35,12 @@ module.exports = options => {
     data(answers) {
       return {
         title: title || answers.title,
-        groupsStr: JSON.stringify(groups),
-        markdownDir
+        markdownDir,
+        docuteConfig: JSON.stringify({
+          ...docuteOptions,
+          target: '#docute',
+          sidebar: [...docuteOptions.sidebar, ...groups]
+        })
       }
     }
   }

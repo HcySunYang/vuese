@@ -18,7 +18,8 @@ export default async (config: CliOptions): Promise<void> => {
       configOptions: {
         components,
         title: config.title,
-        markdownDir: config.markdownDir
+        markdownDir: config.markdownDir,
+        docuteOptions: config.docuteOptions
       }
     })
     logger.success('Generated successfully')

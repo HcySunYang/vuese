@@ -10,10 +10,7 @@
     <div id="docute"></div>
     <script src="https://cdn.jsdelivr.net/npm/docute@4/dist/docute.js"></script>
     <script>
-      new Docute({
-        target: '#docute',
-        sidebar: JSON.parse('<%= groupsStr %>'.replace(/\&\#34\;/g, '"'))
-      })
+      new Docute(JSON.parse('<%= docuteConfig %>'.replace(/\&\#34\;/g, '"')))
     </script>
   </body>
 </html>

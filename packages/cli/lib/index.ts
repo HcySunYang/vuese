@@ -39,6 +39,7 @@ export type CliOptions = {
   port: number
   host: string
   keepFolderStructure: boolean
+  docuteOptions: object
 }
 type PartialCliOptions = Partial<CliOptions>
 
