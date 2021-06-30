@@ -295,7 +295,8 @@ export function parseJavascript(
       if (
         bt.isMemberExpression(node.callee) &&
         bt.isIdentifier(node.callee.property) &&
-        node.callee.property.name === '$emit'
+        node.callee.property.name === '$emit' &&
+        node.callee.object.type === 'ThisExpression'
       ) {
         // for performance issue only check when it is like a `$emit` CallExpression
         const parentExpressionStatementNode = path.findParent(path =>
