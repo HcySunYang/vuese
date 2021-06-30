@@ -44,6 +44,9 @@ export function parseTemplate(
         scoped: false,
         target: 'template'
       }
+
+      let ignoreSlot = false
+
       slot.bindings = extractAndFilterAttr(templateAst.attrsMap)
       if (slot.bindings.name) {
         slot.name = slot.bindings.name
@@ -73,7 +76,13 @@ export function parseTemplate(
             el.isComment &&
             !(parent.tag === 'slot' && parent.children[0] === el)
           ) {
-            slot.describe = el.text.trim()
+            const elText = el.text.trim()
+            if (elText.startsWith('@vuese-ignore')) {
+              ignoreSlot = true;
+            }
+            else {
+              slot.describe = elText
+            }
             break
           }
         }
@@ -90,7 +99,7 @@ export function parseTemplate(
           }
         }
       }
-      if (options.onSlot) options.onSlot(slot)
+      if (options.onSlot && !ignoreSlot) options.onSlot(slot)
     }
     if (templateAst.scopedSlots) {
       Object.values(templateAst.scopedSlots).forEach(scopedSlot => {

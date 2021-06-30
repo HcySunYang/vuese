@@ -107,3 +107,15 @@ test('slot inside Component with v-slot directive', () => {
     target: 'template'
   })
 })
+
+test('slot with @vuese-ignore tag', () => {
+  const sfc: AstResult = getAST('slotIgnore.vue')
+  const mockOnSlot = jest.fn(() => {})
+  const options: ParserOptions = {
+    onSlot: mockOnSlot
+  }
+  const seen = new Seen()
+
+  parseTemplate(sfc.templateAst, seen, options)
+  expect(mockOnSlot.mock.calls.length).toBe(0)
+})
