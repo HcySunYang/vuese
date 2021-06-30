@@ -48,7 +48,7 @@
     "get-port": "^4.1.0",
     "joycon": "^2.2.3",
     "log-horizon": "^0.1.2",
-    "marked": "^0.7.0",
+    "marked": "^1.1.1",
     "open": "^6.4.0",
     "prismjs": "^1.15.0",
     "puppeteer-core": "^5.5.0",
